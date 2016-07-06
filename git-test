@@ -620,7 +620,7 @@ class RunCommand(Command):
                     itercontent = itertools.chain(
                         metadata.to_strings(),
                         ("\n",),
-                        imap(lambda line: line.rstrip(), offp))
+                        iter_rstrip(offp))
                     self.git.add_note(type_name, itercontent)
 
     def execute(self, command, outputfile):
@@ -911,27 +911,18 @@ class Metadata(object):
         """
 
         meta = cls()
-        iterable = iter(iterable)
+        iterable = iter_rstrip(iter(iterable))
 
-        meta.exit_code = int(cls.sniff_shift(iterable))
-        meta.time_start = float(cls.sniff_shift(iterable))
-        meta.time_finish = float(cls.sniff_shift(iterable))
-        meta.command = cls.sniff_shift(iterable)
-        meta.hostname = cls.sniff_shift(iterable)
-        meta.user = cls.sniff_shift(iterable)
-        meta.git_directory = cls.sniff_shift(iterable)
-        meta.serialized_env = cls.sniff_shift(iterable)
+        meta.exit_code = int(next(iterable))
+        meta.time_start = float(next(iterable))
+        meta.time_finish = float(next(iterable))
+        meta.command = next(iterable)
+        meta.hostname = next(iterable)
+        meta.user = next(iterable)
+        meta.git_directory = next(iterable)
+        meta.serialized_env = next(iterable)
 
         return meta
-
-    @classmethod
-    def sniff_shift(cls, iterable):
-        """Small wrapper for iterating. Doing rstrip under the hood."""
-
-        data = next(iterable)
-        data = data.rstrip()
-
-        return data
 
     def __init__(self):
         self.command = ""
@@ -1122,7 +1113,7 @@ class Git(object):
         process = self.git_process(*options)
         stream = unicode_filereader(process.stdout)
 
-        for line in (line.rstrip() for line in stream):
+        for line in iter_rstrip(stream):
             logging.debug("GIT: Read %r", line)
             yield line
 
@@ -1143,7 +1134,7 @@ class Git(object):
 
             raise ReturnCodeProcessError(process.returncode)
 
-        for line in (line.rstrip() for line in stdout.split("\n")):
+        for line in iter_rstrip(stdout.split("\n")):
             logging.debug("GIT: Read %r", line)
             yield line
 
@@ -1447,6 +1438,13 @@ def unicode_filereader(stream):
     stream = reader(stream, errors="replace")
 
     return stream
+
+
+def iter_rstrip(iterable):
+    """Rstrips iterator items."""
+
+    for item in iterable:
+        return item.rstrip()
 
 
 # }}}

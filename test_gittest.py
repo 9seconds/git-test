@@ -52,3 +52,7 @@ class TestFunctions(object):
 
         assert next(reader) == "latin\n"
         assert next(reader) == "привет"
+
+    def test_iter_rstrip(self):
+        for item in GITTEST.iter_rstrip(["a\n", "a\n\n", "a", "a\r\n"]):
+            assert item == "a"
