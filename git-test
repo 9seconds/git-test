@@ -556,6 +556,7 @@ class RunCommand(Command):
         main_process = subprocess.Popen(
             command,
             shell=False,
+            stdin=sys.stdin,
             stdout=stderr_tee_process.stdin,
             stderr=stderr_tee_process.stdin,
             universal_newlines=True)
