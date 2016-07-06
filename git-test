@@ -1444,7 +1444,7 @@ def iter_rstrip(iterable):
     """Rstrips iterator items."""
 
     for item in iterable:
-        return item.rstrip()
+        yield item.rstrip()
 
 
 # }}}
