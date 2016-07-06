@@ -1,0 +1,4 @@
+# Requirements for git-test
+#
+# Actually, this script should have no external requirements so this file
+# is empty.

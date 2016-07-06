@@ -166,11 +166,11 @@ Holla! Test passed. Let's run, doing actual storing of result:
 
 Let's check what we have now:
 
-    ➜ git test list
-    # -------
-    # default
-    # -------
-    2016-07-04T11:43:54.910000  a7caaa76e579899ff025b0f0e10fd138db0056e7  passed
+  ➜ git test list
+  # -------
+  # default
+  # -------
+  2016-07-04T11:43:54.910000  a7caaa76e579899ff025b0f0e10fd138db0056e7  passed
 
 Timestamp, commit and a mark that test is passed. Btw, the list if
 reverse sorted by time
@@ -310,11 +310,15 @@ TEST_REFNS = "test"
 
 if sys.version_info.major == 2:
     imap = itertools.imap
-    iteritems = lambda dictobj: dictobj.iteritems()
+
+    def iteritems(dictobj):
+        return dictobj.iteritems()
 else:
     imap = map
-    iteritems = lambda dictobj: dictobj.items()
     basestring = str,
+
+    def iteritems(dictobj):
+        return dictobj.items()
 
 # }}}
 

@@ -1,0 +1,12 @@
+# Test requirements for git-test
+
+flake8
+flake8-coding
+flake8-debugger
+hacking
+mock; python_version <= "3.3"
+pycodestyle
+pytest
+pytest-cov
+radon
+xenon
