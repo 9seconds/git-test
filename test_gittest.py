@@ -2,32 +2,22 @@
 
 
 import imp
+import os
 import os.path
-import sys
 
 import pytest
 
 
-def load_source(filename, module_name="module"):
-    module = imp.new_module(module_name)
-
-    with open(filename, "rt") as resource:
-        content = resource.read()
-
-    if sys.version_info.major == 2:
-        exec content in module.__dict__
-    else:
-        exec(content, module.__dict__)
-
-    sys.modules[module_name] = module
-
-    return module
-
-
-
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 GITTEST_FILENAME = os.path.join(CURRENT_DIR, "git-test")
-GITTEST = load_source(GITTEST_FILENAME, "gittest")
+GITTEST = imp.load_source("gittest", GITTEST_FILENAME)
+
+
+def teardown_module():
+    try:
+        os.remove(GITTEST_FILENAME + "c")
+    except Exception:
+        pass
 
 
 class TestFunctions(object):

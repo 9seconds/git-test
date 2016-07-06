@@ -86,7 +86,7 @@ You can create your setup file with 'git test setup init'. It will bring
 small wizard to help you to create such file. If you want to check your
 setup, execute 'git test setup show':
 
-    ➜ git test setup show
+    $ git test setup show
     default
         Command: ls -la
     tox
@@ -94,79 +94,79 @@ setup, execute 'git test setup show':
 
 Now let's run 'default' test configuration (ls -la):
 
-    ➜ git test run
+    $ git test run
     # -------
     # default
     # -------
     $ ls -la
-    итого 180
-    drwxrwxr-x 16 sergey sergey  4096 июл  4 11:42 .
-    drwxrwxr-x 16 sergey sergey  4096 июн 22 17:06 ..
-    drwxrwxr-x  2 sergey sergey  4096 май 17 13:28 ag
-    drwxrwxr-x  3 sergey sergey  4096 апр 29 12:50 aria2
-    drwxrwxr-x  2 sergey sergey  4096 июн 27 10:58 ctags
-    drwxrwxr-x  2 sergey sergey  4096 май 28 14:07 git
-    drwxrwxr-x 10 sergey sergey  4096 июл  4 11:05 .git
-    -rw-rw-r--  1 sergey sergey     5 апр 18 11:27 .gitignore
-    -rw-rw-r--  1 sergey sergey   222 апр 19 09:05 .gitmodules
-    -rw-rw-r--  1 sergey sergey   103 июн 30 10:51 .gittest
-    -rw-rw-r--  1 sergey sergey  1279 апр 21 09:05 gnome_terminal.dconf
-    -rwxrwxr-x  1 sergey sergey   722 дек  7  2015 install_vim.sh
-    -rw-rw-r--  1 sergey sergey  1081 ноя 24  2015 LICENSE
-    -rw-rw-r--  1 sergey sergey    85 июн 24 08:46 .mailmap
-    -rw-rw-r--  1 sergey sergey   984 май  5 09:21 Makefile
-    -rw-rw-r--  1 sergey sergey  1000 дек  7  2015 MakefileVim.mk
-    drwxrwxr-x  2 sergey sergey  4096 апр 25 08:28 nodejs
-    drwxrwxr-x  3 sergey sergey  4096 апр 20 09:02 pip
-    drwxrwxr-x  2 sergey sergey  4096 май 25 09:00 python
-    -rw-rw-r--  1 sergey sergey    14 ноя 24  2015 README.md
-    drwxrwxr-x  3 sergey sergey  4096 апр 19 09:05 roxterm
-    drwxrwxr-x  3 sergey sergey  4096 июн 23 15:09 scripts
-    -rw-rw-r--  1 sergey sergey 77293 июл  4 11:42 tags
-    drwxrwxr-x  2 sergey sergey  4096 май 18 08:26 tmux
-    drwxrwxr-x  3 sergey sergey  4096 июн 29 15:21 vim
-    drwxrwxr-x  3 sergey sergey  4096 май 16 17:18 weechat
-    drwxrwxr-x  3 sergey sergey  4096 май 28 14:07 zsh
+    total 180
+    drwxrwxr-x 16 sergey sergey  4096 jul  4 11:42 .
+    drwxrwxr-x 16 sergey sergey  4096 jun 22 17:06 ..
+    drwxrwxr-x  2 sergey sergey  4096 may 17 13:28 ag
+    drwxrwxr-x  3 sergey sergey  4096 apr 29 12:50 aria2
+    drwxrwxr-x  2 sergey sergey  4096 jun 27 10:58 ctags
+    drwxrwxr-x  2 sergey sergey  4096 may 28 14:07 git
+    drwxrwxr-x 10 sergey sergey  4096 jul  4 11:05 .git
+    -rw-rw-r--  1 sergey sergey     5 apr 18 11:27 .gitignore
+    -rw-rw-r--  1 sergey sergey   222 apr 19 09:05 .gitmodules
+    -rw-rw-r--  1 sergey sergey   103 jun 30 10:51 .gittest
+    -rw-rw-r--  1 sergey sergey  1279 apr 21 09:05 gnome_terminal.dconf
+    -rwxrwxr-x  1 sergey sergey   722 dec  7  2015 install_vim.sh
+    -rw-rw-r--  1 sergey sergey  1081 nov 24  2015 LICENSE
+    -rw-rw-r--  1 sergey sergey    85 jun 24 08:46 .mailmap
+    -rw-rw-r--  1 sergey sergey   984 may  5 09:21 Makefile
+    -rw-rw-r--  1 sergey sergey  1000 dec  7  2015 MakefileVim.mk
+    drwxrwxr-x  2 sergey sergey  4096 apr 25 08:28 nodejs
+    drwxrwxr-x  3 sergey sergey  4096 apr 20 09:02 pip
+    drwxrwxr-x  2 sergey sergey  4096 may 25 09:00 python
+    -rw-rw-r--  1 sergey sergey    14 nov 24  2015 README.md
+    drwxrwxr-x  3 sergey sergey  4096 apr 19 09:05 roxterm
+    drwxrwxr-x  3 sergey sergey  4096 jun 23 15:09 scripts
+    -rw-rw-r--  1 sergey sergey 77293 jul  4 11:42 tags
+    drwxrwxr-x  2 sergey sergey  4096 may 18 08:26 tmux
+    drwxrwxr-x  3 sergey sergey  4096 jun 29 15:21 vim
+    drwxrwxr-x  3 sergey sergey  4096 may 16 17:18 weechat
+    drwxrwxr-x  3 sergey sergey  4096 may 28 14:07 zsh
 
 Holla! Test passed. Let's run, doing actual storing of result:
 
-    ➜ git test run -s
+    $ git test run -s
     # -------
     # default
     # -------
     $ ls -la
-    итого 180
-    drwxrwxr-x 16 sergey sergey  4096 июл  4 11:43 .
-    drwxrwxr-x 16 sergey sergey  4096 июн 22 17:06 ..
-    drwxrwxr-x  2 sergey sergey  4096 май 17 13:28 ag
-    drwxrwxr-x  3 sergey sergey  4096 апр 29 12:50 aria2
-    drwxrwxr-x  2 sergey sergey  4096 июн 27 10:58 ctags
-    drwxrwxr-x  2 sergey sergey  4096 май 28 14:07 git
-    drwxrwxr-x 10 sergey sergey  4096 июл  4 11:05 .git
-    -rw-rw-r--  1 sergey sergey     5 апр 18 11:27 .gitignore
-    -rw-rw-r--  1 sergey sergey   222 апр 19 09:05 .gitmodules
-    -rw-rw-r--  1 sergey sergey   103 июн 30 10:51 .gittest
-    -rw-rw-r--  1 sergey sergey  1279 апр 21 09:05 gnome_terminal.dconf
-    -rwxrwxr-x  1 sergey sergey   722 дек  7  2015 install_vim.sh
-    -rw-rw-r--  1 sergey sergey  1081 ноя 24  2015 LICENSE
-    -rw-rw-r--  1 sergey sergey    85 июн 24 08:46 .mailmap
-    -rw-rw-r--  1 sergey sergey   984 май  5 09:21 Makefile
-    -rw-rw-r--  1 sergey sergey  1000 дек  7  2015 MakefileVim.mk
-    drwxrwxr-x  2 sergey sergey  4096 апр 25 08:28 nodejs
-    drwxrwxr-x  3 sergey sergey  4096 апр 20 09:02 pip
-    drwxrwxr-x  2 sergey sergey  4096 май 25 09:00 python
-    -rw-rw-r--  1 sergey sergey    14 ноя 24  2015 README.md
-    drwxrwxr-x  3 sergey sergey  4096 апр 19 09:05 roxterm
-    drwxrwxr-x  3 sergey sergey  4096 июн 23 15:09 scripts
-    -rw-rw-r--  1 sergey sergey 77293 июл  4 11:43 tags
-    drwxrwxr-x  2 sergey sergey  4096 май 18 08:26 tmux
-    drwxrwxr-x  3 sergey sergey  4096 июн 29 15:21 vim
-    drwxrwxr-x  3 sergey sergey  4096 май 16 17:18 weechat
-    drwxrwxr-x  3 sergey sergey  4096 май 28 14:07 zsh
+    total 180
+    drwxrwxr-x 16 sergey sergey  4096 jul  4 11:43 .
+    drwxrwxr-x 16 sergey sergey  4096 jun 22 17:06 ..
+    drwxrwxr-x  2 sergey sergey  4096 may 17 13:28 ag
+    drwxrwxr-x  3 sergey sergey  4096 apr 29 12:50 aria2
+    drwxrwxr-x  2 sergey sergey  4096 jun 27 10:58 ctags
+    drwxrwxr-x  2 sergey sergey  4096 may 28 14:07 git
+    drwxrwxr-x 10 sergey sergey  4096 jul  4 11:05 .git
+    -rw-rw-r--  1 sergey sergey     5 apr 18 11:27 .gitignore
+    -rw-rw-r--  1 sergey sergey   222 apr 19 09:05 .gitmodules
+    -rw-rw-r--  1 sergey sergey   103 jun 30 10:51 .gittest
+    -rw-rw-r--  1 sergey sergey  1279 apr 21 09:05 gnome_terminal.dconf
+    -rwxrwxr-x  1 sergey sergey   722 dec  7  2015 install_vim.sh
+    -rw-rw-r--  1 sergey sergey  1081 nov 24  2015 LICENSE
+    -rw-rw-r--  1 sergey sergey    85 jun 24 08:46 .mailmap
+    -rw-rw-r--  1 sergey sergey   984 may  5 09:21 Makefile
+    -rw-rw-r--  1 sergey sergey  1000 dec  7  2015 MakefileVim.mk
+    drwxrwxr-x  2 sergey sergey  4096 apr 25 08:28 nodejs
+    drwxrwxr-x  3 sergey sergey  4096 apr 20 09:02 pip
+    drwxrwxr-x  2 sergey sergey  4096 may 25 09:00 python
+    -rw-rw-r--  1 sergey sergey    14 nov 24  2015 README.md
+    drwxrwxr-x  3 sergey sergey  4096 apr 19 09:05 roxterm
+    drwxrwxr-x  3 sergey sergey  4096 jun 23 15:09 scripts
+    -rw-rw-r--  1 sergey sergey 77293 jul  4 11:43 tags
+    drwxrwxr-x  2 sergey sergey  4096 may 18 08:26 tmux
+    drwxrwxr-x  3 sergey sergey  4096 jun 29 15:21 vim
+    drwxrwxr-x  3 sergey sergey  4096 may 16 17:18 weechat
+    drwxrwxr-x  3 sergey sergey  4096 may 28 14:07 zsh
 
 Let's check what we have now:
 
-  ➜ git test list
+  $ git test list
   # -------
   # default
   # -------
@@ -177,7 +177,7 @@ reverse sorted by time
 
 Let's check test result:
 
-    ➜ g test show a7caaa76e579899ff025b0f0e10fd138db0056e7
+    $ git test show a7caaa76e579899ff025b0f0e10fd138db0056e7
     # -------
     # default
     # -------
@@ -199,38 +199,38 @@ Let's check test result:
                                SHLVL: 2
                                  PWD: /home/sergey/dev/pvt/dotfiles
 
-    итого 180
-    drwxrwxr-x 16 sergey sergey  4096 июл  4 11:43 .
-    drwxrwxr-x 16 sergey sergey  4096 июн 22 17:06 ..
-    drwxrwxr-x  2 sergey sergey  4096 май 17 13:28 ag
-    drwxrwxr-x  3 sergey sergey  4096 апр 29 12:50 aria2
-    drwxrwxr-x  2 sergey sergey  4096 июн 27 10:58 ctags
-    drwxrwxr-x  2 sergey sergey  4096 май 28 14:07 git
-    drwxrwxr-x 10 sergey sergey  4096 июл  4 11:05 .git
-    -rw-rw-r--  1 sergey sergey     5 апр 18 11:27 .gitignore
-    -rw-rw-r--  1 sergey sergey   222 апр 19 09:05 .gitmodules
-    -rw-rw-r--  1 sergey sergey   103 июн 30 10:51 .gittest
-    -rw-rw-r--  1 sergey sergey  1279 апр 21 09:05 gnome_terminal.dconf
-    -rwxrwxr-x  1 sergey sergey   722 дек  7  2015 install_vim.sh
-    -rw-rw-r--  1 sergey sergey  1081 ноя 24  2015 LICENSE
-    -rw-rw-r--  1 sergey sergey    85 июн 24 08:46 .mailmap
-    -rw-rw-r--  1 sergey sergey   984 май  5 09:21 Makefile
-    -rw-rw-r--  1 sergey sergey  1000 дек  7  2015 MakefileVim.mk
-    drwxrwxr-x  2 sergey sergey  4096 апр 25 08:28 nodejs
-    drwxrwxr-x  3 sergey sergey  4096 апр 20 09:02 pip
-    drwxrwxr-x  2 sergey sergey  4096 май 25 09:00 python
-    -rw-rw-r--  1 sergey sergey    14 ноя 24  2015 README.md
-    drwxrwxr-x  3 sergey sergey  4096 апр 19 09:05 roxterm
-    drwxrwxr-x  3 sergey sergey  4096 июн 23 15:09 scripts
-    -rw-rw-r--  1 sergey sergey 77293 июл  4 11:43 tags
-    drwxrwxr-x  2 sergey sergey  4096 май 18 08:26 tmux
-    drwxrwxr-x  3 sergey sergey  4096 июн 29 15:21 vim
-    drwxrwxr-x  3 sergey sergey  4096 май 16 17:18 weechat
-    drwxrwxr-x  3 sergey sergey  4096 май 28 14:07 zsh
+    total 180
+    drwxrwxr-x 16 sergey sergey  4096 jul  4 11:43 .
+    drwxrwxr-x 16 sergey sergey  4096 jun 22 17:06 ..
+    drwxrwxr-x  2 sergey sergey  4096 may 17 13:28 ag
+    drwxrwxr-x  3 sergey sergey  4096 apr 29 12:50 aria2
+    drwxrwxr-x  2 sergey sergey  4096 jun 27 10:58 ctags
+    drwxrwxr-x  2 sergey sergey  4096 may 28 14:07 git
+    drwxrwxr-x 10 sergey sergey  4096 jul  4 11:05 .git
+    -rw-rw-r--  1 sergey sergey     5 apr 18 11:27 .gitignore
+    -rw-rw-r--  1 sergey sergey   222 apr 19 09:05 .gitmodules
+    -rw-rw-r--  1 sergey sergey   103 jun 30 10:51 .gittest
+    -rw-rw-r--  1 sergey sergey  1279 apr 21 09:05 gnome_terminal.dconf
+    -rwxrwxr-x  1 sergey sergey   722 dec  7  2015 install_vim.sh
+    -rw-rw-r--  1 sergey sergey  1081 nov 24  2015 LICENSE
+    -rw-rw-r--  1 sergey sergey    85 jun 24 08:46 .mailmap
+    -rw-rw-r--  1 sergey sergey   984 may  5 09:21 Makefile
+    -rw-rw-r--  1 sergey sergey  1000 dec  7  2015 MakefileVim.mk
+    drwxrwxr-x  2 sergey sergey  4096 apr 25 08:28 nodejs
+    drwxrwxr-x  3 sergey sergey  4096 apr 20 09:02 pip
+    drwxrwxr-x  2 sergey sergey  4096 may 25 09:00 python
+    -rw-rw-r--  1 sergey sergey    14 nov 24  2015 README.md
+    drwxrwxr-x  3 sergey sergey  4096 apr 19 09:05 roxterm
+    drwxrwxr-x  3 sergey sergey  4096 jun 23 15:09 scripts
+    -rw-rw-r--  1 sergey sergey 77293 jul  4 11:43 tags
+    drwxrwxr-x  2 sergey sergey  4096 may 18 08:26 tmux
+    drwxrwxr-x  3 sergey sergey  4096 jun 29 15:21 vim
+    drwxrwxr-x  3 sergey sergey  4096 may 16 17:18 weechat
+    drwxrwxr-x  3 sergey sergey  4096 may 28 14:07 zsh
 
 Okay, let's push:
 
-    ➜ git test push
+    $ git test push
     # ------
     # origin
     # ------
@@ -243,15 +243,15 @@ along with code now.
 
 To fetch test results, you may use following:
 
-    ➜ git test pull
+    $ git test pull
     # ------
     # origin
     # ------
 
-Also, if you do not want to do that explicitly all the time (as I),
+Also, if you do not want to do that explicitly all the time (),
 please execute following:
 
-    ➜ git config --local --add remote.origin.fetch \
+    $ git config --local --add remote.origin.fetch \
           "+refs/notes/test*:refs/notes/test*"
 
 This will update your .git/config and now you will fetch test results on
@@ -262,7 +262,9 @@ This will update your .git/config and now you will fetch test results on
 # Imports {{{
 
 
-from __future__ import print_function, unicode_literals, absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 import argparse
 import binascii
@@ -355,8 +357,7 @@ class StdErrorProcessError(ProcessError):
 
 
 class Command(object):
-    """
-    Base class for git-test subcommands.
+    """Base class for git-test subcommands.
 
     This class contains routines, required by each subcommand: reading
     config file, printing the same header etc.
@@ -381,8 +382,7 @@ class Command(object):
 
     @property
     def config(self):
-        """
-        Returns k/v mapping of the config.
+        """Returns k/v mapping of the config.
 
         Key is the name of the configuration, value is a dict of config
         k/v pairs.
@@ -536,9 +536,9 @@ class RunCommand(Command):
 
     @staticmethod
     def execute_command(command, file_tee_to):
-        """
-        Executes a test command. 2 argument is a filename where
-        mixed streams will be written.
+        """Executes a test command.
+
+        2 argument is a filename where mixed streams will be written.
 
         Main requirement: command stdout and stderr streams should be
         kept for git test stdout/stderr, but also mirrored into the file
@@ -582,8 +582,7 @@ class RunCommand(Command):
 
     @property
     def strict_mode_ok(self):
-        """
-        Checks if command can be run in strict mode.
+        """Checks if command can be run in strict mode.
 
         Strict mode means that no untracked files are present and no
         uncommited modifications of tracked files were done. This is a
@@ -897,8 +896,7 @@ class PullCommand(PushCommand):
 
 
 class Metadata(object):
-    """
-    This class encapsulates all logic, related to metadata.
+    """This class encapsulates all logic, related to metadata.
 
     The main intention of that class is to have an encapsulation of
     field ordering at one place.
@@ -906,9 +904,9 @@ class Metadata(object):
 
     @classmethod
     def sniff(cls, iterable):
-        """
-        This method build metadata using an iterable. Iterable, usually,
-        is an output of 'git notes show' command.
+        """This method build metadata using an iterable.
+
+        Iterable, usually, is an output of 'git notes show' command.
         """
 
         meta = cls()
@@ -946,8 +944,7 @@ class Metadata(object):
 
     @property
     def serialized_env(self):
-        """
-        This property returns 'serialized' env to store in git notes.
+        """This property returns 'serialized' env to store in git notes.
 
         Serialized means: PyObject -> Base64 string.
         """
@@ -960,8 +957,7 @@ class Metadata(object):
 
     @property
     def unserialized_env(self):
-        """
-        This property returns 'unserialized' env.
+        """This property returns 'unserialized' env.
 
         Base64 -> PyObject.
         """
@@ -972,10 +968,7 @@ class Metadata(object):
         self._serialized_env = dict_to_base64(value)
 
     def to_strings(self):
-        """
-        Just an iterator, which returns metadata strings in an order,
-        applicable for storing in git notes.
-        """
+        """Returns metadata strings in an order, applicable for storing."""
 
         yield str(self.exit_code)
         yield str(self.time_start)
@@ -1022,17 +1015,12 @@ class Git(object):
         return self._current_commit_sha
 
     def ref_for(self, type_name):
-        """
-        Returns the name of the Git reference namespace for a given
-        test configuration.
-        """
-
         return "{0}_{1}".format(TEST_REFNS, type_name)
 
     def add_note(self, type_name, itercontent):
-        """
-        Adds a git note for a test configuration. itercontent is an
-        iterable with a strings.
+        """Adds a git note for a test configuration.
+
+        itercontent is an iterable with a strings.
         """
 
         process = self.git_process(
@@ -1048,9 +1036,7 @@ class Git(object):
         return process.returncode
 
     def remove_note(self, type_name, commits):
-        """
-        Removes a notes for given commit hashes
-        """
+        """Removes a notes for given commit hashes."""
 
         process = self.git_process(
             "notes", "--ref", self.ref_for(type_name),
@@ -1060,8 +1046,7 @@ class Git(object):
         return process.returncode
 
     def list_notes(self, type_name):
-        """
-        Returns a list of notes for the given reference namespace.
+        """Returns a list of notes for the given reference namespace.
 
         Returns a list of dicts. Dict has {"note", "commit"} keys. "note"
         is a SHA1 hash of note itself, "commit" - SHA1 of the commit,
@@ -1080,9 +1065,7 @@ class Git(object):
         return notes
 
     def has_note(self, type_name, commit_sha):
-        """
-        Checks if given commit has a test result in given reference namespace.
-        """
+        """Checks if given commit has a test result."""
 
         output = self.output("notes", "--ref", self.ref_for(type_name), "list",
                              commit_sha)
@@ -1091,10 +1074,7 @@ class Git(object):
         return output != ""
 
     def show_note(self, type_name, commit_sha):
-        """
-        Returns a tuple of metadata and test tool output for the given
-        commit SHA1 in test reference namespace.
-        """
+        """Returns a tuple of metadata and test tool output."""
 
         if not self.has_note(type_name, commit_sha):
             raise ValueError
@@ -1108,9 +1088,7 @@ class Git(object):
         return metadata, output
 
     def prune_notes(self, type_name, dry_run):
-        """
-        Prunes orphan notes in the given test reference namespace.
-        """
+        """Prunes orphan notes in the given test reference namespace."""
 
         command = ["notes", "--ref", self.ref_for(type_name), "prune", "-v"]
         if dry_run:
@@ -1119,9 +1097,7 @@ class Git(object):
         return self.output(*command)
 
     def status(self):
-        """
-        Returns a content of the git status.
-        """
+        """Returns a content of the git status."""
 
         entries = {}
 
@@ -1136,19 +1112,14 @@ class Git(object):
         return entries
 
     def output(self, *options, **kwargs):
-        """
-        Returns an iterator for the git command output.
+        """Returns an iterator for the git command output.
 
         If iterator exists ok, it means that git has finished with
         status code 0. Otherwise, an exception will be raised.
         """
 
         process = self.git_process(*options)
-
-        stream = process.stdout
-        if not isinstance(stream, io.TextIOBase):  # required for PyPy
-            reader = codecs.getreader("utf-8")
-            stream = reader(stream, errors="replace")
+        stream = unicode_filereader(process.stdout)
 
         for line in (line.rstrip() for line in stream):
             logging.debug("GIT: Read %r", line)
@@ -1463,6 +1434,18 @@ def base64_to_dict(data):
     data = json.loads(data)
 
     return data
+
+
+def unicode_filereader(stream):
+    """Returns a file reader, which emits unicode always."""
+
+    if isinstance(stream, io.TextIOBase):
+        return stream
+
+    reader = codecs.getreader("utf-8")
+    stream = reader(stream, errors="replace")
+
+    return stream
 
 
 # }}}

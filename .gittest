@@ -1,5 +1,8 @@
 {
     "default": {
-        "command": "pytest -v ."
+        "command": "tox -e py27-test"
+    },
+    "tox": {
+        "command": "tox"
     }
 }
