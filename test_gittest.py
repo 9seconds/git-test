@@ -4,10 +4,12 @@
 from __future__ import unicode_literals
 
 import contextlib
+import fnmatch
 import imp
 import json
 import os
 import os.path
+import posixpath
 import shutil
 import subprocess
 import sys
@@ -138,3 +140,20 @@ class TestGit(object):
 
     def test_current_commit_sha(self):
         assert git_call("rev-parse", "HEAD") == self.git.current_commit_sha
+
+    @pytest.mark.parametrize("test_class", (
+        "",
+        "default",
+        "tox",
+        "default_tox",
+        "___"
+    ))
+    def test_ref_for(self, test_class):
+        reference = self.git.ref_for(test_class)
+        full_ref = posixpath.join("refs", "notes", reference)
+        pull_rem_ref, pull_loc_ref = GITTEST.PullCommand.REFSPEC.split(":")
+
+        assert reference.startswith(GITTEST.TEST_REFNS)
+        assert fnmatch.fnmatch(full_ref, GITTEST.PushCommand.REFSPEC)
+        assert fnmatch.fnmatch(full_ref, pull_rem_ref)
+        assert fnmatch.fnmatch(full_ref, pull_loc_ref)

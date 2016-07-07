@@ -981,6 +981,10 @@ class Metadata(object):
 class Git(object):
     """A wrapper for a Git CLI."""
 
+    @staticmethod
+    def ref_for(type_name):
+        return "{0}_{1}".format(TEST_REFNS, type_name)
+
     def __init__(self):
         self._toplevel_path = ""
         self._current_commit_sha = ""
@@ -1005,9 +1009,6 @@ class Git(object):
             self._current_commit_sha = commit_sha.strip()
 
         return self._current_commit_sha
-
-    def ref_for(self, type_name):
-        return "{0}_{1}".format(TEST_REFNS, type_name)
 
     def add_note(self, type_name, itercontent):
         """Adds a git note for a test configuration.
