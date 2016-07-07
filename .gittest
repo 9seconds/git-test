@@ -1,6 +1,6 @@
 {
     "default": {
-        "command": "tox -e py27-test"
+        "command": "tox -e py27"
     },
     "tox": {
         "command": "tox"

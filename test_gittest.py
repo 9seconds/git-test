@@ -3,16 +3,81 @@
 
 from __future__ import unicode_literals
 
+import contextlib
 import imp
+import json
 import os
 import os.path
+import shutil
+import subprocess
+import sys
 
 import pytest
 
 
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+if sys.version_info.major == 2:
+    to_str = unicode
+else:
+    to_str = str
+
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+"""Project directory."""
+
 GITTEST_FILENAME = os.path.join(CURRENT_DIR, "git-test")
+"""Filename of the script file."""
+
 GITTEST = imp.load_source("gittest", GITTEST_FILENAME)
+"""Module to test."""
+
+
+@pytest.yield_fixture
+def clean_directory(tmpdir):
+    with tmpdir.as_cwd():
+        yield tmpdir
+
+    shutil.rmtree(tmpdir.strpath)
+
+
+@pytest.fixture
+def git_directory(clean_directory):
+    git_call("init", "-q")
+    git_call("config", "user.name", "user_name")
+    git_call("config", "user.email", "user@name.com")
+
+    return clean_directory
+
+
+@pytest.fixture
+def tool_configured(git_directory):
+    prepare_gittest("ls -lAh")
+
+    return git_directory
+
+
+@contextlib.contextmanager
+def git_commit():
+    git_call("clean", "-xfdq")
+    yield
+    git_call("commit", "-aq", "-m", "wip")
+
+
+def prepare_gittest(command):
+    with git_commit():
+        with open(".gittest", "wt") as filefp:
+              json.dump(
+                  {GITTEST.TEST_TYPE_DEFAULT: {"command": command}},
+                  filefp)
+
+        git_call("add", ".gittest")
+
+
+def git_call(*args):
+    output = subprocess.check_output(["git"] + list(args))
+    output = output.rstrip()
+    output = output.decode("utf-8")
+
+    return output
 
 
 def teardown_module():
@@ -56,3 +121,20 @@ class TestFunctions(object):
     def test_iter_rstrip(self):
         for item in GITTEST.iter_rstrip(["a\n", "a\n\n", "a", "a\r\n"]):
             assert item == "a"
+
+
+class TestGit(object):
+
+    @pytest.fixture(autouse=True)
+    def tool_configured(self, git_directory):
+        prepare_gittest("ls -lAh")
+        self.current_dir = git_directory
+
+    def setup_method(self, method):
+        self.git = GITTEST.Git()
+
+    def test_toplevel_path(self):
+        assert self.git.toplevel_path == self.current_dir.strpath
+
+    def test_current_commit_sha(self):
+        assert git_call("rev-parse", "HEAD") == self.git.current_commit_sha
