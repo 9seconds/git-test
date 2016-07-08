@@ -124,6 +124,24 @@ class TestFunctions(object):
         for item in GITTEST.iter_rstrip(["a\n", "a\n\n", "a", "a\r\n"]):
             assert item == "a"
 
+    @pytest.mark.parametrize("type_name", (
+        "",
+        "default",
+        "tox",
+        "___"
+    ))
+    def test_make_refs(self, type_name):
+        short_ref = GITTEST.make_ref(type_name)
+        full_ref = GITTEST.make_full_ref(type_name)
+        push_spec = GITTEST.PushCommand.make_ref_arg()
+        pull_spec = GITTEST.PullCommand.make_ref_arg()
+        pull_remote, pull_local = pull_spec.split(":", 1)
+
+        assert short_ref.startswith(GITTEST.TEST_REFNS)
+        assert fnmatch.fnmatch(full_ref, push_spec)
+        assert fnmatch.fnmatch(full_ref, pull_remote)
+        assert fnmatch.fnmatch(full_ref, pull_local)
+
 
 class TestGit(object):
 
@@ -140,23 +158,6 @@ class TestGit(object):
 
     def test_current_commit_sha(self):
         assert git_call("rev-parse", "HEAD") == self.git.current_commit_sha
-
-    @pytest.mark.parametrize("test_class", (
-        "",
-        "default",
-        "tox",
-        "default_tox",
-        "___"
-    ))
-    def test_ref_for(self, test_class):
-        reference = self.git.ref_for(test_class)
-        full_ref = posixpath.join("refs", "notes", reference)
-        pull_rem_ref, pull_loc_ref = GITTEST.PullCommand.REFSPEC.split(":")
-
-        assert reference.startswith(GITTEST.TEST_REFNS)
-        assert fnmatch.fnmatch(full_ref, GITTEST.PushCommand.REFSPEC)
-        assert fnmatch.fnmatch(full_ref, pull_rem_ref)
-        assert fnmatch.fnmatch(full_ref, pull_loc_ref)
 
     def test_error_output(self):
         with pytest.raises(GITTEST.ProcessError):

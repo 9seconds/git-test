@@ -854,8 +854,11 @@ class PruneCommand(Command):
 class PushCommand(Command):
     """This command is responsible for 'git test push'."""
 
-    REFSPEC = posixpath.join("refs", "notes", TEST_REFNS + "_*")
-    """Refspec to push (git push $REFSPEC)."""
+    @staticmethod
+    def make_ref_arg():
+        """Creates a refspec for push."""
+
+        return make_full_ref("*")
 
     GIT_COMMAND = ["push", "--porcelain", "--atomic"]
     """Git command to use for push."""
@@ -874,7 +877,7 @@ class PushCommand(Command):
 
         self.print_header(remote)
 
-        command = self.GIT_COMMAND + [remote, self.REFSPEC]
+        command = self.GIT_COMMAND + [remote, self.make_ref_arg()]
         for line in self.git.output(*command):
             print(line)
 
@@ -887,7 +890,10 @@ class PullCommand(PushCommand):
     """This command is responsible for 'git test pull'."""
 
     GIT_COMMAND = ["fetch"]
-    REFSPEC = "{0}:{0}".format(PushCommand.REFSPEC)
+
+    @staticmethod
+    def make_ref_arg():
+        return "{0}:{0}".format(make_full_ref("*"))
 
 
 # }}}
@@ -981,10 +987,6 @@ class Metadata(object):
 class Git(object):
     """A wrapper for a Git CLI."""
 
-    @staticmethod
-    def ref_for(type_name):
-        return "{0}_{1}".format(TEST_REFNS, type_name)
-
     def __init__(self):
         self._toplevel_path = ""
         self._current_commit_sha = ""
@@ -1017,7 +1019,7 @@ class Git(object):
         """
 
         process = self.git_process(
-            "notes", "--ref", self.ref_for(type_name),
+            "notes", "--ref", make_ref(type_name),
             "add", "-F", "-", self.current_commit_sha)
 
         for line in itercontent:
@@ -1032,7 +1034,7 @@ class Git(object):
         """Removes a notes for given commit hashes."""
 
         process = self.git_process(
-            "notes", "--ref", self.ref_for(type_name),
+            "notes", "--ref", make_ref(type_name),
             "remove", "--ignore-missing", *list(commits))
         process.communicate()
 
@@ -1049,7 +1051,7 @@ class Git(object):
         notes = []
 
         for note in self.output("notes", "--ref",
-                                self.ref_for(type_name), "list"):
+                                make_ref(type_name), "list"):
             if not note:
                 continue
             notes_obj, annotated_obj = note.split(" ", 1)
@@ -1060,7 +1062,7 @@ class Git(object):
     def has_note(self, type_name, commit_sha):
         """Checks if given commit has a test result."""
 
-        output = self.output("notes", "--ref", self.ref_for(type_name), "list",
+        output = self.output("notes", "--ref", make_ref(type_name), "list",
                              commit_sha)
         output = next(output)
 
@@ -1072,7 +1074,7 @@ class Git(object):
         if not self.has_note(type_name, commit_sha):
             raise ValueError
 
-        output = self.output("notes", "--ref", self.ref_for(type_name), "show",
+        output = self.output("notes", "--ref", make_ref(type_name), "show",
                              commit_sha)
         metadata = Metadata.sniff(output)
         next(output)
@@ -1083,7 +1085,7 @@ class Git(object):
     def prune_notes(self, type_name, dry_run):
         """Prunes orphan notes in the given test reference namespace."""
 
-        command = ["notes", "--ref", self.ref_for(type_name), "prune", "-v"]
+        command = ["notes", "--ref", make_ref(type_name), "prune", "-v"]
         if dry_run:
             command.append("--dry-run")
 
@@ -1446,6 +1448,18 @@ def iter_rstrip(iterable):
 
     for item in iterable:
         yield item.rstrip()
+
+
+def make_ref(type_name):
+    """Returns a namespaced notes reference."""
+
+    return "{0}_{1}".format(TEST_REFNS, type_name)
+
+
+def make_full_ref(type_name):
+    """Returns a full refspec for the test config."""
+
+    return posixpath.join("refs", "notes", make_ref(type_name))
 
 
 # }}}
