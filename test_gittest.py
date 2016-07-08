@@ -67,9 +67,9 @@ def git_commit():
 def prepare_gittest(command):
     with git_commit():
         with open(".gittest", "wt") as filefp:
-              json.dump(
-                  {GITTEST.TEST_TYPE_DEFAULT: {"command": command}},
-                  filefp)
+            json.dump(
+                {GITTEST.TEST_TYPE_DEFAULT: {"command": command}},
+                filefp)
 
         git_call("add", ".gittest")
 
@@ -157,3 +157,59 @@ class TestGit(object):
         assert fnmatch.fnmatch(full_ref, GITTEST.PushCommand.REFSPEC)
         assert fnmatch.fnmatch(full_ref, pull_rem_ref)
         assert fnmatch.fnmatch(full_ref, pull_loc_ref)
+
+    def test_error_output(self):
+        with pytest.raises(GITTEST.ProcessError):
+            list(self.git.output("lasdf"))
+
+    def test_status_untracked(self):
+        self.current_dir.join("file").write_text("1", "utf-8")
+
+        assert self.git.status() == {"file": "??"}
+
+    def test_status_add(self):
+        self.current_dir.join("file").write_text("1", "utf-8")
+        git_call("add", "file")
+
+        assert self.git.status() == {"file": "A"}
+
+    def test_status_commited(self):
+        with git_commit():
+            self.current_dir.join("file").write_text("1", "utf-8")
+            git_call("add", "file")
+
+        assert self.git.status() == {}
+
+    def test_status_modified(self):
+        fileobj = self.current_dir.join("file")
+
+        with git_commit():
+            fileobj.write_text("1", "utf-8")
+            git_call("add", "file")
+
+        fileobj.write_text("22", "utf-8")
+
+        assert self.git.status() == {"file": "M"}
+
+    def test_status_deleted(self):
+        fileobj = self.current_dir.join("file")
+
+        with git_commit():
+            fileobj.write_text("1", "utf-8")
+            git_call("add", "file")
+
+        fileobj.remove()
+
+        assert self.git.status() == {"file": "D"}
+
+    def test_status_ignored(self):
+        fileobj = self.current_dir.join("file")
+
+        with git_commit():
+            fileobj.write_text("1", "utf-8")
+            self.current_dir.join(".gitignore").write_text("file", "utf-8")
+            git_call("add", ".gitignore")
+
+        fileobj.write_text("22", "utf-8")
+
+        assert self.git.status() == {}
